@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum BaseStatus implements BaseEnum {
 
 
-    ENABLE(1, "正常"),
+    ENABLE(1, "Normal"),
 
-    DISABLE(0, "禁用");
+    DISABLE(0, "Disable");
 
 
     @EnumValue
