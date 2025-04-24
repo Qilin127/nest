@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SystemUserType implements BaseEnum {
 
-    ADMIN(0, "Admin"),         // 管理员
-    COMMON(1, "Common User");  // 普通用户
+    ADMIN(0, "Admin"),      
+    COMMON(1, "Common User"); 
 
     @EnumValue
     @JsonValue
