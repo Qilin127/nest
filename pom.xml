@@ -14,10 +14,85 @@
         <module>web</module>
     </modules>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.0.5</version>
+    </parent>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <swagger.version>2.9.2</swagger.version>
+        <jwt.version>0.11.2</jwt.version>
+        <easycaptcha.version>1.6.2</easycaptcha.version>
+        <minio.version>8.2.0</minio.version>
+        <knife4j.version>4.1.0</knife4j.version>
+        <codec.version>1.17.0</codec.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--mybatis-plus-->
+            <!--https://baomidou.com/pages/bab2db/ -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!--knife4j API-->
+            <!--https://doc.xiaominfo.com/docs/quick-start -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <!--JWTLogin authentication-->
+            <!--https://github.com/jwtk/jjwt#install-jdk-maven -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <scope>runtime</scope>
+                <version>${jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <scope>runtime</scope>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <!--identifying code-->
+            <!--https://gitee.com/ele-admin/EasyCaptcha -->
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${easycaptcha.version}</version>
+            </dependency>
+
+            <!--minio-Object storage is used for storing unstructured data such as images-->
+            <!--https://min.io/docs/minio/linux/developers/minio-drivers.html?ref=docs#java-sdk -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${codec.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
