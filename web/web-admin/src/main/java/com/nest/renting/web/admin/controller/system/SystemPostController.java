@@ -33,7 +33,7 @@ public class SystemPostController {
     @Operation(summary = "Save or update position information")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody SystemPost systemPost) {
-
+        service.saveOrUpdate(systemPost);
         return Result.ok();
     }
 
