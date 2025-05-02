@@ -40,7 +40,7 @@ public class SystemPostController {
     @DeleteMapping("deleteById")
     @Operation(summary = "Delete a position by ID")
     public Result removeById(@RequestParam Long id) {
-
+        service.removeById(id);
         return Result.ok();
     }
 
