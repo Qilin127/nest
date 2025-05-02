@@ -54,8 +54,8 @@ public class SystemPostController {
     @Operation(summary = "Retrieve the full list of positions")
     @GetMapping("list")
     public Result<List<SystemPost>> list() {
-
-        return Result.ok();
+        List<SystemPost> list = service.list();
+        return Result.ok(list);
     }
 
     @Operation(summary = "Update the status of a position by its ID")
