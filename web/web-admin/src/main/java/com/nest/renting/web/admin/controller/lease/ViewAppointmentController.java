@@ -1,8 +1,10 @@
 package com.nest.renting.web.admin.controller.lease;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nest.renting.common.result.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.nest.renting.model.entity.ViewAppointment;
 import com.nest.renting.model.enums.AppointmentStatus;
 import com.nest.renting.web.admin.service.ViewAppointmentService;
 import com.nest.renting.web.admin.vo.appointment.AppointmentQueryVo;
@@ -29,6 +31,10 @@ public class ViewAppointmentController {
     @Operation(summary = "Update viewing appointment status by ID")
     @PostMapping("updateStatusById")
     public Result updateStatusById(@RequestParam Long id, @RequestParam AppointmentStatus status) {
+        LambdaUpdateWrapper<ViewAppointment> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(ViewAppointment::getId, id);
+        updateWrapper.set(ViewAppointment::getAppointmentStatus, status);
+        service.update(updateWrapper);
         return Result.ok();
     }
 
