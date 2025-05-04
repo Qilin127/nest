@@ -6,6 +6,7 @@ import com.nest.renting.model.entity.CityInfo;
 import com.nest.renting.model.entity.DistrictInfo;
 import com.nest.renting.model.entity.ProvinceInfo;
 import com.nest.renting.web.admin.service.CityInfoService;
+import com.nest.renting.web.admin.service.DistrictInfoService;
 import com.nest.renting.web.admin.service.ProvinceInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,9 +24,10 @@ import java.util.List;
 public class RegionInfoController {
     @Autowired
     private ProvinceInfoService provinceInfoService;
-
     @Autowired
     private CityInfoService cityInfoService;
+    @Autowired
+    private DistrictInfoService districtInfoService;
 
     @Operation(summary = "Retrieve the list of state")
     @GetMapping("province/list")
@@ -46,7 +48,10 @@ public class RegionInfoController {
     @GetMapping("district/listByCityId")
     @Operation(summary = "Retrieve the list of districts by city ID")
     public Result<List<DistrictInfo>> listDistrictInfoByCityId(@RequestParam Long id) {
-        return Result.ok();
+        LambdaQueryWrapper<DistrictInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(DistrictInfo::getCityId, id);
+        List<DistrictInfo> list = districtInfoService.list(lambdaQueryWrapper);
+        return Result.ok(list);
     }
 
 }
