@@ -29,6 +29,7 @@ public class LabelController {
         queryWrapper.eq(type != null, LabelInfo::getType, type);
         List<LabelInfo> list = service.list(queryWrapper);
         return Result.ok(list);
+        
     }
 
     @Operation(summary = "Add or update tag information")
