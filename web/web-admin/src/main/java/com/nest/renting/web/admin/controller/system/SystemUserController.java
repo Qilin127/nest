@@ -33,7 +33,8 @@ public class SystemUserController {
     @Operation(summary = "Retrieve Admin User Information by ID")
     @GetMapping("getById")
     public Result<SystemUserItemVo> getById(@RequestParam Long id) {
-        return Result.ok();
+        SystemUserItemVo systemUser = service.getSystemUserById(id);
+        return Result.ok(systemUser);
     }
 
     @Operation(summary = "Save or Update Admin User Information")
