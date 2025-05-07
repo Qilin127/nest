@@ -1,5 +1,6 @@
 package com.nest.renting.web.admin.controller.system;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nest.renting.common.result.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nest.renting.model.entity.SystemUser;
@@ -19,12 +20,14 @@ import org.springframework.web.bind.annotation.*;
 public class SystemUserController {
 
     @Autowired
-    private SystemUserService systemUserService;
+    private SystemUserService service;
 
     @Operation(summary = "Paginated Query of Admin User List Based on Conditions")
     @GetMapping("page")
     public Result<IPage<SystemUserItemVo>> page(@RequestParam long current, @RequestParam long size, SystemUserQueryVo queryVo) {
-        return Result.ok();
+        IPage<SystemUser> page = new Page<>(current, size);
+        IPage<SystemUserItemVo> systemUserPage = service.pageSystemUserByQuery(page, queryVo);
+        return Result.ok(systemUserPage);
     }
 
     @Operation(summary = "Retrieve Admin User Information by ID")
