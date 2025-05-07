@@ -47,8 +47,8 @@ public class SystemPostController {
     @GetMapping("getById")
     @Operation(summary = "Get position details by ID")
     public Result<SystemPost> getById(@RequestParam Long id) {
-
-        return Result.ok();
+        SystemPost systemPost = service.getById(id);
+        return Result.ok(systemPost);
     }
 
     @Operation(summary = "Retrieve the full list of positions")
