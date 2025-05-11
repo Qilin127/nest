@@ -32,7 +32,7 @@ public class LabelController {
         
     }
 
-    @Operation(summary = "Add or update tag information")
+    @Operation(summary = "Add or update tag information")//Delete tag information by id
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdateLabel(@RequestBody LabelInfo labelInfo) {
         return Result.ok();
