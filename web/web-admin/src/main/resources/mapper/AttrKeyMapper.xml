@@ -5,3 +5,22 @@
 <mapper namespace="com.nest.renting.web.admin.mapper.AttrKeyMapper">
 
 </mapper>
+  <resultMap id="BaseResultMap" type="com.atguigu.lease.web.admin.vo.attr.AttrKeyVo">
+      <id property="id" column="id"/>
+      <result property="name" column="key_name"/>
+      <collection property="attrValueList" ofType="com.atguigu.lease.model.entity.AttrValue">
+          <id column="value_id" property="id"/>
+          <result column="value_name" property="name"/>
+          <result column="key_id" property="attrKeyId"/>
+      </collection>
+  </resultMap>
+  <select id="listAttrInfo" resultMap="BaseResultMap">
+      select k.id,
+             k.name        key_name,
+             v.id          value_id,
+             v.name        value_name,
+             v.attr_key_id key_id
+      from attr_key k
+               left join attr_value v on k.id = v.attr_key_id and v.is_deleted = 0
+      where k.is_deleted = 0
+  </select>
