@@ -1,5 +1,6 @@
 package com.nest.renting.web.admin.controller.system;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.nest.renting.common.result.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -47,8 +48,8 @@ public class SystemPostController {
     @GetMapping("getById")
     @Operation(summary = "Get position details by ID")
     public Result<SystemPost> getById(@RequestParam Long id) {
-
-        return Result.ok();
+        SystemPost systemPost = service.getById(id);
+        return Result.ok(systemPost);
     }
 
     @Operation(summary = "Retrieve the full list of positions")
@@ -61,7 +62,10 @@ public class SystemPostController {
     @Operation(summary = "Update the status of a position by its ID")
     @PostMapping("updateStatusByPostId")
     public Result updateStatusByPostId(@RequestParam Long id, @RequestParam BaseStatus status) {
-
+        LambdaUpdateWrapper<SystemPost> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(SystemPost::getId, id);
+        updateWrapper.set(SystemPost::getStatus, status);
+        service.update(updateWrapper);
         return Result.ok();
     }
 }
