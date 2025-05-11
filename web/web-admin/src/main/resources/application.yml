@@ -21,3 +21,9 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+minio:
+  endpoint: # <hostname>:<port> needs to be filled in
+  access-key: # needs to be filled in
+  secret-key: # needs to be filled in
+  bucket-name: # needs to be filled in
