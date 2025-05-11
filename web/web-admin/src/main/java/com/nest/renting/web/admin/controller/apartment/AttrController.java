@@ -1,5 +1,6 @@
 package com.nest.renting.web.admin.controller.apartment;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.nest.renting.common.result.Result;
 import com.nest.renting.model.entity.AttrKey;
 import com.nest.renting.model.entity.AttrValue;
@@ -41,18 +42,26 @@ public class AttrController {
     @Operation(summary = "Retrieve the full list of attribute names and values")
     @GetMapping("list")
     public Result<List<AttrKeyVo>> listAttrInfo() {
+        List<AttrKeyVo> list = attrKeyService.listAttrInfo();//List<AttrKeyVo> is equivalent to: List<name, List<AttrValue>>
         return Result.ok();
     }
 
     @Operation(summary = "Delete an attribute name (category) by ID")
     @DeleteMapping("key/deleteById")
     public Result removeAttrKeyById(@RequestParam Long attrKeyId) {
+         //Delete attrKey
+        attrKeyService.removeById(attrKeyId);
+        //Delete attrValue
+        LambdaQueryWrapper<AttrValue> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AttrValue::getAttrKeyId, attrKeyId);
+        attrValueService.remove(queryWrapper);
         return Result.ok();
     }
 
     @Operation(summary = "Delete an attribute value (element) by ID")
     @DeleteMapping("value/deleteById")
     public Result removeAttrValueById(@RequestParam Long id) {
+        attrValueService.removeById(id);
         return Result.ok();
     }
 
