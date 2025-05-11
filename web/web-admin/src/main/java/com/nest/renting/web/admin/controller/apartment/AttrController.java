@@ -3,9 +3,13 @@ package com.nest.renting.web.admin.controller.apartment;
 import com.nest.renting.common.result.Result;
 import com.nest.renting.model.entity.AttrKey;
 import com.nest.renting.model.entity.AttrValue;
+import com.nest.renting.web.admin.service.AttrKeyService;
+import com.nest.renting.web.admin.service.AttrValueService;
 import com.nest.renting.web.admin.vo.attr.AttrKeyVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,15 +19,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/attr")
 public class AttrController {
+     @Autowired
+    private AttrKeyService attrKeyService;
+    @Autowired
+    private AttrValueService attrValueService;
+
     @Operation(summary = "Add or update attribute names")
     @PostMapping("key/saveOrUpdate")
     public Result saveOrUpdateAttrKey(@RequestBody AttrKey attrKey) {
+        attrKeyService.saveOrUpdate(attrKey);//Save or update attribute names
         return Result.ok();
     }
 
     @Operation(summary = "Add or update attribute values")
     @PostMapping("value/saveOrUpdate")
     public Result saveOrUpdateAttrValue(@RequestBody AttrValue attrValue) {
+        attrValueService.saveOrUpdate(attrValue);
         return Result.ok();
     }
 
