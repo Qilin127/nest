@@ -1,6 +1,7 @@
 package com.nest.renting.web.admin.controller.system;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nest.renting.common.result.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -69,6 +70,10 @@ public class SystemUserController {
     @Operation(summary = "Update Admin User Status by ID")
     @PostMapping("updateStatusByUserId")
     public Result updateStatusByUserId(@RequestParam Long id, @RequestParam BaseStatus status) {
+        LambdaUpdateWrapper<SystemUser> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(SystemUser::getId, id);
+        updateWrapper.set(SystemUser::getStatus, status);
+        service.update(updateWrapper);
         return Result.ok();
     }
 }
