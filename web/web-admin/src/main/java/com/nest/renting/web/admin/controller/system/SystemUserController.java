@@ -62,6 +62,7 @@ public class SystemUserController {
     @DeleteMapping("deleteById")
     @Operation(summary = "Delete Admin User Information by ID")
     public Result removeById(@RequestParam Long id) {
+        service.removeById(id);
         return Result.ok();
     }
 
