@@ -11,6 +11,7 @@ import com.nest.renting.web.admin.vo.system.user.SystemUserQueryVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -40,6 +41,11 @@ public class SystemUserController {
     @Operation(summary = "Save or Update Admin User Information")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody SystemUser systemUser) { // 接收SystemUser，说明不会进行连表查询
+        if(systemUser.getPassword() != null){
+            //将密码的明文加密变成密文
+            systemUser.setPassword(DigestUtils.md5Hex(systemUser.getPassword()));
+        }
+        service.saveOrUpdate(systemUser);
         return Result.ok();
     }
 
