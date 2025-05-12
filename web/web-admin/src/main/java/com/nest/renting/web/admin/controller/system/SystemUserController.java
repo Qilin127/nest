@@ -1,5 +1,6 @@
 package com.nest.renting.web.admin.controller.system;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nest.renting.common.result.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -52,7 +53,10 @@ public class SystemUserController {
     @Operation(summary = "Check Availability of Admin Username")
     @GetMapping("isUserNameAvailable")
     public Result<Boolean> isUsernameExists(@RequestParam String username) {
-        return Result.ok();
+        LambdaQueryWrapper<SystemUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SystemUser::getUsername, username);
+        long count = service.count(queryWrapper);
+        return Result.ok(count == 0);
     }
 
     @DeleteMapping("deleteById")
