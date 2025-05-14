@@ -21,6 +21,14 @@ public class LeaseAgreementServiceImpl extends ServiceImpl<LeaseAgreementMapper,
 
     @Autowired
     private LeaseAgreementMapper leaseAgreementMapper;
+    @Autowired
+    private ApartmentInfoMapper apartmentInfoMapper;
+    @Autowired
+    private RoomInfoMapper roomInfoMapper;
+    @Autowired
+    private PaymentTypeMapper paymentTypeMapper;
+    @Autowired
+    private LeaseTermMapper leaseTermMapper;
 
     @Override
     public IPage<AgreementVo> pageAgreementByQuery(IPage<AgreementVo> page, AgreementQueryVo queryVo) {

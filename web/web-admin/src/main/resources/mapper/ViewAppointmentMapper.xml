@@ -4,34 +4,43 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nest.renting.web.admin.mapper.ViewAppointmentMapper">
 
-    <resultMap id="AppointmentVoMap" type="com.atguigu.lease.web.admin.vo.appointment.AppointmentVo" autoMapping="true">
+    <resultMap id="AppointmentVoMap" type="com.nest.renting.web.admin.vo.appointment.AppointmentVo" autoMapping="true">
         <id property="id" column="id"/>
-        <association property="apartmentInfo" javaType="com.atguigu.lease.model.entity.ApartmentInfo" autoMapping="true">
-            <id property="id" column="apartment_id"/>
-            <result property="name" column="apartment_name"/>
+        <association property="apartmentInfo" javaType="com.nest.renting.model.entity.ApartmentInfo" autoMapping="true">
+            <id property="id" column="ai_id"/>
+            <result property="name" column="ai_name"/>
+            <result property="phone" column="ai_phone"/>
         </association>
+
     </resultMap>
 
-    <select id="pageAppointmentByQuery" resultMap="AppointmentVoMap">
+    <select id="pageAppointment" resultMap="AppointmentVoMap">
         select va.id,
         va.user_id,
         va.name,
         va.phone,
+        va.apartment_id,
         va.appointment_time,
         va.additional_info,
         va.appointment_status,
-        ai.id   apartment_id,
-        ai.name apartment_name,
+        ai.id ai_id,
+        ai.name ai_name,
+        ai.introduction,
         ai.district_id,
         ai.district_name,
         ai.city_id,
         ai.city_name,
         ai.province_id,
-        ai.province_name
+        ai.province_name,
+        ai.address_detail,
+        ai.latitude,
+        ai.longitude,
+        ai.phone ai_phone,
+        ai.is_release
         from view_appointment va
         left join
         apartment_info ai
-        on va.apartment_id = ai.id and ai.is_deleted=0
+        on va.apartment_id = ai.id and ai.is_deleted = 0
         <where>
             va.is_deleted = 0
             <if test="queryVo.provinceId != null">
@@ -54,5 +63,4 @@
             </if>
         </where>
     </select>
-
 </mapper>

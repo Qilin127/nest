@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/attr")
 public class AttrController {
-     @Autowired
+    @Autowired
     private AttrKeyService attrKeyService;
     @Autowired
     private AttrValueService attrValueService;
