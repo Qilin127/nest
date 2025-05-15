@@ -3,6 +3,7 @@ package com.nest.renting.web.admin.controller.apartment;
 import com.nest.renting.common.result.Result;
 import com.nest.renting.model.entity.ApartmentInfo;
 import com.nest.renting.model.enums.ReleaseStatus;
+import com.nest.renting.web.admin.service.ApartmentInfoService;
 import com.nest.renting.web.admin.vo.apartment.ApartmentDetailVo;
 import com.nest.renting.web.admin.vo.apartment.ApartmentItemVo;
 import com.nest.renting.web.admin.vo.apartment.ApartmentQueryVo;
@@ -10,6 +11,7 @@ import com.nest.renting.web.admin.vo.apartment.ApartmentSubmitVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +24,15 @@ import java.util.List;
 @RequestMapping("/admin/apartment")
 public class ApartmentController {
 
+    @Autowired
+    private ApartmentInfoService apartmentInfoService;
+
     @Operation(summary = "Save or update apartment information")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody ApartmentSubmitVo apartmentSubmitVo) {
+        // The saveOrUpdate of this service (provided by mybatis) can only manage the ApartmentInfo type and not the VO type.
+        // Need to create the service yourself
+        apartmentInfoService.saveOrUpdateApartment(apartmentSubmitVo);
         return Result.ok();
     }
 
