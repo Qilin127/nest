@@ -1,11 +1,15 @@
 package com.nest.renting.web.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nest.renting.model.entity.*;
 import com.nest.renting.model.enums.ItemType;
 import com.nest.renting.web.admin.mapper.*;
 import com.nest.renting.web.admin.service.*;
+import com.nest.renting.web.admin.vo.apartment.ApartmentItemVo;
+import com.nest.renting.web.admin.vo.apartment.ApartmentQueryVo;
 import com.nest.renting.web.admin.vo.apartment.ApartmentSubmitVo;
 import com.nest.renting.web.admin.vo.graph.GraphVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +34,8 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
     private ApartmentLabelService apartmentLabelService;
     @Autowired
     private ApartmentFeeValueService apartmentFeeValueService;
+    @Autowired
+    private ApartmentInfoMapper apartmentInfoMapper;
 
     /**
      * Update logic: Delete all the original data and then add all the data returned by the front end
@@ -122,6 +128,13 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
         }
 
     }
+
+    @Override
+    public IPage<ApartmentItemVo> pageItem(Page<ApartmentItemVo> apartmentItemVoPage, ApartmentQueryVo queryVo) {
+        return apartmentInfoMapper.pageItem(apartmentItemVoPage, queryVo);
+    }
+
+
 }
 
 

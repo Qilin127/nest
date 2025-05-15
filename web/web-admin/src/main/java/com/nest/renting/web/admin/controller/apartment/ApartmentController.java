@@ -1,5 +1,6 @@
 package com.nest.renting.web.admin.controller.apartment;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nest.renting.common.result.Result;
 import com.nest.renting.model.entity.ApartmentInfo;
 import com.nest.renting.model.enums.ReleaseStatus;
@@ -39,7 +40,9 @@ public class ApartmentController {
     @Operation(summary = "Retrieve a paginated list of apartments based on filter conditions")
     @GetMapping("pageItem")
     public Result<IPage<ApartmentItemVo>> pageItem(@RequestParam long current, @RequestParam long size, ApartmentQueryVo queryVo) {
-        return Result.ok();
+        Page<ApartmentItemVo> apartmentItemVoPage = new Page<>(current, size);
+        IPage<ApartmentItemVo> apartmentItemVoIPage = apartmentInfoService.pageItem(apartmentItemVoPage, queryVo);
+        return Result.ok(apartmentItemVoIPage);
     }
 
     /**
