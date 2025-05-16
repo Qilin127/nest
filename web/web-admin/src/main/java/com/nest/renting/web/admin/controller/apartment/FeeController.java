@@ -1,12 +1,17 @@
 package com.nest.renting.web.admin.controller.apartment;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.nest.renting.common.result.Result;
 import com.nest.renting.model.entity.FeeKey;
 import com.nest.renting.model.entity.FeeValue;
+import com.nest.renting.web.admin.service.FeeKeyService;
+import com.nest.renting.web.admin.service.FeeValueService;
 import com.nest.renting.web.admin.vo.fee.FeeKeyVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,15 +22,23 @@ import java.util.List;
 @RequestMapping("/admin/fee")
 public class FeeController {
 
+    @Autowired
+    private FeeKeyService feeKeyService;
+    @Autowired
+    private FeeValueService feeValueService;
+    
+
     @Operation(summary = "Save or update fee category name")
     @PostMapping("key/saveOrUpdate")
     public Result saveOrUpdateFeeKey(@RequestBody FeeKey feeKey) {
+        feeKeyService.saveOrUpdate(feeKey);
         return Result.ok();
     }
 
     @Operation(summary = "Save or update fee value")
     @PostMapping("value/saveOrUpdate")
     public Result saveOrUpdateFeeValue(@RequestBody FeeValue feeValue) {
+        feeValueService.saveOrUpdate(feeValue);
         return Result.ok();
     }
 
@@ -33,18 +46,28 @@ public class FeeController {
     @Operation(summary = "Retrieve the full list of fee categories and their values")
     @GetMapping("list")
     public Result<List<FeeKeyVo>> feeInfoList() {
+        List<FeeKeyVo> list = feeKeyService.listFeeInfo();
         return Result.ok();
     }
 
     @Operation(summary = "Delete a fee category by ID")
     @DeleteMapping("key/deleteById")
     public Result deleteFeeKeyById(@RequestParam Long feeKeyId) {
-        return Result.ok();
+    //Delete the name of the miscellaneous fee
+    feeKeyService.removeById(feeKeyId);
+    //Delete the miscellaneous fee value under the miscellaneous fee name
+    LambdaQueryWrapper<FeeValue> queryWrapper = new LambdaQueryWrapper<>();
+    queryWrapper.eq(FeeValue::getFeeKeyId, feeKeyId);
+    feeValueService.remove(queryWrapper);
+    return Result.ok();
+
     }
 
     @Operation(summary = "Delete a fee value by ID")
     @DeleteMapping("value/deleteById")
     public Result deleteFeeValueById(@RequestParam Long id) {
+        feeValueService.removeById(id);
         return Result.ok();
+        
     }
 }
