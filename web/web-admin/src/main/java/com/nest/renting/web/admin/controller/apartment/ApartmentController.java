@@ -46,17 +46,19 @@ public class ApartmentController {
     }
 
     /**
-     * 用于公寓管理——修改公寓页面，用作修改回显
+     * For apartment management - Modify the apartment page and serve as a modification echo
      */
     @Operation(summary = "Get detailed apartment information by ID")
     @GetMapping("getDetailById")
     public Result<ApartmentDetailVo> getDetailById(@RequestParam Long id) {
-        return Result.ok();
+        ApartmentDetailVo apartmentDetailVo = apartmentInfoService.getDetailById(id);
+        return Result.ok(apartmentDetailVo);
     }
 
     @Operation(summary = "Delete apartment information by ID")
     @DeleteMapping("removeById")
     public Result removeById(@RequestParam Long id) {
+        apartmentInfoService.removeDetailById(id);
         return Result.ok();
     }
 
