@@ -3,5 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nest.renting.web.admin.mapper.LabelInfoMapper">
+    <select id="selectListByIApartmentId" resultType="com.nest.renting.model.entity.LabelInfo">
+        SELECT id,
+               type,
+               name
+        FROM label_info
+        WHERE is_deleted = 0
+          AND id IN
+              (SELECT label_id
+               FROM apartment_label
+               WHERE is_deleted = 0
+                 AND apartment_id = #{id})
+    </select>
 
 </mapper>
