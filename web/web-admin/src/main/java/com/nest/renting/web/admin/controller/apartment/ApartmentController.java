@@ -1,5 +1,7 @@
 package com.nest.renting.web.admin.controller.apartment;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nest.renting.common.result.Result;
 import com.nest.renting.model.entity.ApartmentInfo;
@@ -65,13 +67,19 @@ public class ApartmentController {
     @Operation(summary = "Update the apartment’s release status by ID")
     @PostMapping("updateReleaseStatusById")
     public Result updateReleaseStatusById(@RequestParam Long id, @RequestParam ReleaseStatus status) {
+        LambdaUpdateWrapper<ApartmentInfo> infoLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        infoLambdaUpdateWrapper.eq(ApartmentInfo::getId, id).set(ApartmentInfo::getIsRelease, status);
+        apartmentInfoService.update(infoLambdaUpdateWrapper);
         return Result.ok();
     }
 
     @Operation(summary = "Retrieve a list of apartments by district ID")
     @GetMapping("listInfoByDistrictId")
     public Result<List<ApartmentInfo>> listInfoByDistrictId(@RequestParam Long id) {
-        return Result.ok();
+        LambdaQueryWrapper<ApartmentInfo> apartmentInfoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        apartmentInfoLambdaQueryWrapper.eq(ApartmentInfo::getDistrictId, id);
+        List<ApartmentInfo> list = apartmentInfoService.list(apartmentInfoLambdaQueryWrapper);
+        return Result.ok(list);
     }
 }
 
