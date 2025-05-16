@@ -53,13 +53,14 @@ public class FeeController {
     @Operation(summary = "Delete a fee category by ID")
     @DeleteMapping("key/deleteById")
     public Result deleteFeeKeyById(@RequestParam Long feeKeyId) {
-        //Delete the name of the miscellaneous fee
+    //Delete the name of the miscellaneous fee
     feeKeyService.removeById(feeKeyId);
     //Delete the miscellaneous fee value under the miscellaneous fee name
     LambdaQueryWrapper<FeeValue> queryWrapper = new LambdaQueryWrapper<>();
     queryWrapper.eq(FeeValue::getFeeKeyId, feeKeyId);
     feeValueService.remove(queryWrapper);
     return Result.ok();
+
     }
 
     @Operation(summary = "Delete a fee value by ID")
@@ -67,5 +68,6 @@ public class FeeController {
     public Result deleteFeeValueById(@RequestParam Long id) {
         feeValueService.removeById(id);
         return Result.ok();
+        
     }
 }
