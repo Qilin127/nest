@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
 * @description The database operation Mapper for the table [graph_info(image information table)]
-* @Entity com.atguigu.lease.model.GraphInfo
 */
 public interface GraphInfoMapper extends BaseMapper<GraphInfo> {
     List<GraphVo> selectListByItemTypeAndId(ItemType itemType, Long id);

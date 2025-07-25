@@ -33,7 +33,7 @@ public class LeaseAgreementServiceImpl extends ServiceImpl<LeaseAgreementMapper,
     @Override
     public IPage<AgreementVo> pageAgreementByQuery(IPage<AgreementVo> page, AgreementQueryVo queryVo) {
 
-        return leaseAgreementMapper.pageAgreementByQuery(page, queryVo);
+        return leaseAgreementMapper.pageAgreement(page, queryVo);
     }
 
     @Override

@@ -16,15 +16,15 @@ import java.util.List;
 */
 @Service
 public class FeeKeyServiceImpl extends ServiceImpl<FeeKeyMapper, FeeKey>
-    implements FeeKeyService {
-     @Autowired
-    private FeeKeyMapper mapper;
-    
-    @Override
-    public List<FeeKeyVo> listFeeInfo() {
-        return mapper.listFeeInfo();
-    }
+        implements FeeKeyService {
 
+    @Autowired
+    private FeeKeyMapper feeKeyMapper;
+
+    @Override
+    public List<FeeKeyVo> feeInfoList() {
+        return feeKeyMapper.feeInfoList();
+    }
 }
 
 

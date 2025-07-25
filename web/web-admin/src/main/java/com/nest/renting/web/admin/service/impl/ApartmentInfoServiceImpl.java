@@ -214,7 +214,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
             feeValueLambdaQueryWrapper.eq(ApartmentFeeValue::getApartmentId, id);
             apartmentFeeValueService.remove(feeValueLambdaQueryWrapper);
         }
-
+    }
 }
 
 

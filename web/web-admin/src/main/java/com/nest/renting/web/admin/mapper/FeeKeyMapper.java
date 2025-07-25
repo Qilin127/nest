@@ -11,7 +11,8 @@ import com.nest.renting.web.admin.vo.fee.FeeKeyVo;
 * @Entity com.atguigu.lease.model.FeeKey
 */
 public interface FeeKeyMapper extends BaseMapper<FeeKey> {
- List<FeeKeyVo> listFeeInfo();
+
+ List<FeeKeyVo> feeInfoList();
 }
 
 

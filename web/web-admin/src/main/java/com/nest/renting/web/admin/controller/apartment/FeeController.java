@@ -46,7 +46,7 @@ public class FeeController {
     @Operation(summary = "Retrieve the full list of fee categories and their values")
     @GetMapping("list")
     public Result<List<FeeKeyVo>> feeInfoList() {
-        List<FeeKeyVo> list = feeKeyService.listFeeInfo();
+        List<FeeKeyVo> list = feeKeyService.feeInfoList();
         return Result.ok();
     }
 

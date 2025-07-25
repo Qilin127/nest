@@ -13,6 +13,7 @@
         avatar_url,
         additional_info,
         post_id,
+        su.status,
         sp.name post_name
         from system_user su
         left join system_post sp on su.post_id = sp.id and sp.is_deleted = 0
@@ -27,4 +28,19 @@
         </where>
     </select>
 
+    <select id="selectOneByUsername" resultType="com.nest.renting.model.entity.SystemUser">
+        SELECT id,
+               username,
+               password,
+               name,
+               type,
+               phone,
+               avatar_url,
+               additional_info,
+               post_id,
+               status
+        FROM system_user
+        WHERE is_deleted = 0
+          AND username = #{username}
+    </select>
 </mapper>
