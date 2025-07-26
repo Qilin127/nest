@@ -3,7 +3,10 @@ package com.nest.renting.common.result;
 import lombok.Getter;
 
 /**
- * Unified response status code enumeration
+ * Unified response status code enumeration.
+ * This enumeration defines a set of common response status codes and their corresponding messages,
+ * which are used to represent the result of various operations in the application,
+ * such as success, failure, parameter errors, and authentication failures.
  */
 @Getter
 public enum ResultCodeEnum {
