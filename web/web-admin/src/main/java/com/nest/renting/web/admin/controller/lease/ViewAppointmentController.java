@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ViewAppointmentController {
     @Autowired
-    private ViewAppointmentService service;
+    private ViewAppointmentService viewAppointmentService;
     @Operation(summary = "Retrieve a paginated list of viewing appointments")
     @GetMapping("page")
     public Result<IPage<AppointmentVo>> page(@RequestParam long current, @RequestParam long size, AppointmentQueryVo queryVo) {
-        IPage<AppointmentVo> page = new Page<>(current, size);
-        IPage<AppointmentVo> list = service.pageAppointmentByQuery(page, queryVo);
-        return Result.ok(list);
+        IPage<AppointmentVo> appointmentVoIPage = new Page<>(current, size);
+        IPage<AppointmentVo> result = viewAppointmentService.pageAppointment(appointmentVoIPage, queryVo);
+        return Result.ok(result);
     }
 
     @Operation(summary = "Update viewing appointment status by ID")
     @PostMapping("updateStatusById")
     public Result updateStatusById(@RequestParam Long id, @RequestParam AppointmentStatus status) {
-        LambdaUpdateWrapper<ViewAppointment> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.eq(ViewAppointment::getId, id);
-        updateWrapper.set(ViewAppointment::getAppointmentStatus, status);
-        service.update(updateWrapper);
+        LambdaUpdateWrapper<ViewAppointment> viewAppointmentLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        viewAppointmentLambdaUpdateWrapper.eq(ViewAppointment::getId, id)
+                .set(ViewAppointment::getAppointmentStatus, status);
+        viewAppointmentService.update(viewAppointmentLambdaUpdateWrapper);
         return Result.ok();
     }
 

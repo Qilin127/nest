@@ -2,6 +2,7 @@ package com.nest.renting.web.admin.schedule;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.nest.renting.model.entity.LeaseAgreement;
+import com.nest.renting.model.enums.LeaseSourceType;
 import com.nest.renting.model.enums.LeaseStatus;
 import com.nest.renting.web.admin.service.LeaseAgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,10 @@ public class ScheduledTasks {
 
     @Scheduled(cron = "0 0 0 * * *")
     public void checkLeaseStatus() {
-
-        LambdaUpdateWrapper<LeaseAgreement> updateWrapper = new LambdaUpdateWrapper<>();
-        Date now = new Date();
-        updateWrapper.le(LeaseAgreement::getLeaseEndDate, now);
-        updateWrapper.eq(LeaseAgreement::getStatus, LeaseStatus.SIGNED);
-        updateWrapper.in(LeaseAgreement::getStatus, LeaseStatus.SIGNED, LeaseStatus.WITHDRAWING);
-
-        leaseAgreementService.update(updateWrapper);
+        LambdaUpdateWrapper<LeaseAgreement> leaseAgreementLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        leaseAgreementLambdaUpdateWrapper.le(LeaseAgreement::getLeaseEndDate, new Date());
+        leaseAgreementLambdaUpdateWrapper.in(LeaseAgreement::getStatus, LeaseStatus.SIGNED, LeaseStatus.WITHDRAWING, LeaseStatus.RENEWING);
+        leaseAgreementLambdaUpdateWrapper.set(LeaseAgreement::getStatus, LeaseStatus.EXPIRED);
+        leaseAgreementService.update(leaseAgreementLambdaUpdateWrapper);
     }
 }

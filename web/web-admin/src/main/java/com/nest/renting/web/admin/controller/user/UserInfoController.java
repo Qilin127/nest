@@ -1,5 +1,6 @@
 package com.nest.renting.web.admin.controller.user;
 
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,6 +12,7 @@ import com.nest.renting.web.admin.service.UserInfoService;
 import com.nest.renting.web.admin.vo.user.UserInfoQueryVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.checkerframework.checker.guieffect.qual.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,27 +22,26 @@ import org.springframework.web.bind.annotation.*;
 public class UserInfoController {
 
     @Autowired
-    private UserInfoService service;
+    private UserInfoService userInfoService;
 
     @Operation(summary = "Paginated Query of User Information")
     @GetMapping("page")
     public Result<IPage<UserInfo>> pageUserInfo(@RequestParam long current, @RequestParam long size, UserInfoQueryVo queryVo) {
-        IPage<UserInfo> page = new Page<>(current, size);
-        LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(queryVo.getPhone() != null, UserInfo::getPhone, queryVo.getPhone());
-        queryWrapper.eq(queryVo.getStatus() != null, UserInfo::getStatus, queryVo.getStatus());
-        IPage<UserInfo> list = service.page(page, queryWrapper);
-        return Result.ok(list);
+        IPage<UserInfo> userInfoIPage = new Page<>(current, size);
+        LambdaQueryWrapper<UserInfo> userInfoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        userInfoLambdaQueryWrapper.like(queryVo.getPhone() != null, UserInfo::getPhone, queryVo.getPhone());
+        userInfoLambdaQueryWrapper.eq(queryVo.getStatus() != null, UserInfo::getStatus, queryVo.getStatus());
+        IPage<UserInfo> result = userInfoService.page(userInfoIPage, userInfoLambdaQueryWrapper);
+        return Result.ok(result);
     }
 
     @Operation(summary = "Update Account Status by User ID")
     @PostMapping("updateStatusById")
     public Result updateStatusById(@RequestParam Long id, @RequestParam BaseStatus status) {
-
-        LambdaUpdateWrapper<UserInfo> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.eq(UserInfo::getId, id);
-        updateWrapper.set(UserInfo::getStatus, status);
-        service.update(updateWrapper);
+        LambdaUpdateWrapper<UserInfo> userInfoLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        userInfoLambdaUpdateWrapper.eq(UserInfo::getId, id);
+        userInfoLambdaUpdateWrapper.set(UserInfo::getStatus, status);
+        userInfoService.update(userInfoLambdaUpdateWrapper);
         return Result.ok();
     }
 

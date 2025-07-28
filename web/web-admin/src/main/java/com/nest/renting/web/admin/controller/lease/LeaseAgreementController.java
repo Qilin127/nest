@@ -21,47 +21,45 @@ import org.springframework.web.bind.annotation.*;
 public class LeaseAgreementController {
 
     @Autowired
-    private LeaseAgreementService service;
+    private LeaseAgreementService leaseAgreementService;
 
     @Operation(summary = "Save or update lease agreement information")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody LeaseAgreement leaseAgreement) {
-        service.saveOrUpdate(leaseAgreement);
+        leaseAgreementService.saveOrUpdate(leaseAgreement);
         return Result.ok();
     }
 
     @Operation(summary = "Retrieve a paginated list of lease agreements based on conditions")
     @GetMapping("page")
     public Result<IPage<AgreementVo>> page(@RequestParam long current, @RequestParam long size, AgreementQueryVo queryVo) {
-        IPage<AgreementVo> page = new Page<>(current, size);
-        IPage<AgreementVo> list = service.pageAgreementByQuery(page, queryVo);
-
-        return Result.ok(list);
+        IPage<AgreementVo> agreementVoIPage = new Page<>(current, size);
+        IPage<AgreementVo> result = leaseAgreementService.pageAgreement(agreementVoIPage, queryVo);
+        return Result.ok(result);
     }
 
     @Operation(summary = "Get lease agreement details by ID")
     @GetMapping(name = "getById")
     public Result<AgreementVo> getById(@RequestParam Long id) {
-
-        AgreementVo apartment = service.getAgreementById(id);
-
-        return Result.ok(apartment);
+        AgreementVo agreementVo = leaseAgreementService.getAgreementById(id);
+        return Result.ok(agreementVo);
     }
+
 
     @Operation(summary = "Delete lease agreement by ID")
     @DeleteMapping("removeById")
     public Result removeById(@RequestParam Long id) {
-        service.removeById(id);
+        leaseAgreementService.removeById(id);
         return Result.ok();
     }
 
     @Operation(summary = "Update lease agreement status by ID")
     @PostMapping("updateStatusById")
     public Result updateStatusById(@RequestParam Long id, @RequestParam LeaseStatus status) {
-        LambdaUpdateWrapper<LeaseAgreement> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.eq(LeaseAgreement::getId, id);
-        updateWrapper.set(LeaseAgreement::getStatus, status);
-        service.update(updateWrapper);
+        LambdaUpdateWrapper<LeaseAgreement> leaseAgreementLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        leaseAgreementLambdaUpdateWrapper.eq(LeaseAgreement::getId, id);
+        leaseAgreementLambdaUpdateWrapper.set(LeaseAgreement::getStatus, status);
+        leaseAgreementService.update(leaseAgreementLambdaUpdateWrapper);
         return Result.ok();
     }
 
