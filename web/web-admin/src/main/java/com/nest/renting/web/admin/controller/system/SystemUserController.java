@@ -42,9 +42,8 @@ public class SystemUserController {
 
     @Operation(summary = "Save or Update Admin User Information")
     @PostMapping("saveOrUpdate")
-    public Result saveOrUpdate(@RequestBody SystemUser systemUser) { // 接收SystemUser，说明不会进行连表查询
+    public Result saveOrUpdate(@RequestBody SystemUser systemUser) {
         if(systemUser.getPassword() != null){
-            //将密码的明文加密变成密文
             systemUser.setPassword(DigestUtils.md5Hex(systemUser.getPassword()));
         }
         service.saveOrUpdate(systemUser);

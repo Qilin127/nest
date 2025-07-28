@@ -7,10 +7,16 @@ import lombok.Data;
 
 import java.util.List;
 
-
+/**
+ * Represents the view object for fee keys, which extends the base FeeKey entity.
+ * This class includes additional information about the list of fee values associated with the fee key.
+ */
 @Data
 public class FeeKeyVo extends FeeKey {
 
+    /**
+     * A list of miscellaneous fee values associated with the fee key.
+     */
     @Schema(description = "List of miscellaneous fee values")
     private List<FeeValue> feeValueList;
 }

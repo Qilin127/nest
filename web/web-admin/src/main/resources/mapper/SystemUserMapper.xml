@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nest.renting.web.admin.mapper.SystemUserMapper">
 
-    <select id="pageSystemUserByQuery" resultType="com.atguigu.lease.web.admin.vo.system.user.SystemUserItemVo">
+    <select id="pageSystemUserByQuery" resultType="com.nest.renting.lease.web.admin.vo.system.user.SystemUserItemVo">
         select su.id,
         username,
         su.name,
