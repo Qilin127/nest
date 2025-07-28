@@ -11,11 +11,9 @@ import com.nest.renting.web.admin.vo.appointment.AppointmentVo;
 * @Entity com.atguigu.lease.model.ViewAppointment
 */
 public interface ViewAppointmentMapper extends BaseMapper<ViewAppointment> {
-    IPage<AppointmentVo> pageAppointmentByQuery(IPage<AppointmentVo> page, AppointmentQueryVo queryVo);
 
-
+    IPage<AppointmentVo> pageAppointment(IPage<AppointmentVo> appointmentVoIPage, AppointmentQueryVo queryVo);
 }
-
 
 
 

@@ -12,8 +12,7 @@ import com.nest.renting.web.admin.vo.agreement.AgreementVo;
 */
 public interface LeaseAgreementMapper extends BaseMapper<LeaseAgreement> {
 
-    IPage<AgreementVo> pageAgreementByQuery(IPage<AgreementVo> page, AgreementQueryVo queryVo);
-
+    IPage<AgreementVo> pageAgreement(IPage<AgreementVo> agreementVoIPage, AgreementQueryVo queryVo);
 }
 
 
