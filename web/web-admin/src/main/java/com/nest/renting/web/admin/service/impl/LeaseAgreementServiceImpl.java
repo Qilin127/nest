@@ -34,6 +34,7 @@ public class LeaseAgreementServiceImpl extends ServiceImpl<LeaseAgreementMapper,
             return leaseAgreementMapper.pageAgreement(agreementVoIPage, queryVo);
         }
 
+
     @Override
     public AgreementVo getAgreementById(Long id) {
 

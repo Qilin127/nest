@@ -5,7 +5,6 @@ import com.nest.renting.model.entity.RoomInfo;
 
 /**
 * @description The database operation Mapper for the table [room_info(Room information table)]
-* @Entity com.atguigu.lease.model.RoomInfo
 */
 public interface RoomInfoMapper extends BaseMapper<RoomInfo> {
 
