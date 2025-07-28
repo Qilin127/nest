@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 公寓信息管理 —— 公寓管理
+ * Controller for managing apartment information.
  */
 @Tag(name = "Apartment information management")
 @RestController
@@ -30,6 +30,12 @@ public class ApartmentController {
     @Autowired
     private ApartmentInfoService apartmentInfoService;
 
+    /**
+     * Save or update apartment information.
+     *
+     * @param apartmentSubmitVo the apartment data transfer object containing apartment details
+     * @return a Result indicating success or failure
+     */
     @Operation(summary = "Save or update apartment information")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody ApartmentSubmitVo apartmentSubmitVo) {
@@ -39,6 +45,14 @@ public class ApartmentController {
         return Result.ok();
     }
 
+    /**
+     * Retrieve a paginated list of apartments based on filter conditions.
+     *
+     * @param current the current page number
+     * @param size the number of items per page
+     * @param queryVo the filter criteria encapsulated in ApartmentQueryVo
+     * @return a paginated Result containing a list of ApartmentItemVo
+     */
     @Operation(summary = "Retrieve a paginated list of apartments based on filter conditions")
     @GetMapping("pageItem")
     public Result<IPage<ApartmentItemVo>> pageItem(@RequestParam long current, @RequestParam long size, ApartmentQueryVo queryVo) {
@@ -57,6 +71,13 @@ public class ApartmentController {
         return Result.ok(apartmentDetailVo);
     }
 
+
+    /**
+     * Delete apartment information by ID.
+     *
+     * @param id the apartment ID to delete
+     * @return a Result indicating success or failure
+     */
     @Operation(summary = "Delete apartment information by ID")
     @DeleteMapping("removeById")
     public Result removeById(@RequestParam Long id) {
@@ -64,6 +85,13 @@ public class ApartmentController {
         return Result.ok();
     }
 
+    /**
+     * Update the apartment’s release status by ID.
+     *
+     * @param id the apartment ID
+     * @param status the new release status
+     * @return a Result indicating success or failure
+     */
     @Operation(summary = "Update the apartment’s release status by ID")
     @PostMapping("updateReleaseStatusById")
     public Result updateReleaseStatusById(@RequestParam Long id, @RequestParam ReleaseStatus status) {
@@ -73,6 +101,12 @@ public class ApartmentController {
         return Result.ok();
     }
 
+    /**
+     * Retrieve a list of apartments by district ID.
+     *
+     * @param id the district ID
+     * @return a Result containing a list of ApartmentInfo objects in the specified district
+     */
     @Operation(summary = "Retrieve a list of apartments by district ID")
     @GetMapping("listInfoByDistrictId")
     public Result<List<ApartmentInfo>> listInfoByDistrictId(@RequestParam Long id) {
