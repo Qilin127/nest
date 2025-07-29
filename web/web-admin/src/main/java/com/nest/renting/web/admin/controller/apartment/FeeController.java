@@ -26,8 +26,13 @@ public class FeeController {
     private FeeKeyService feeKeyService;
     @Autowired
     private FeeValueService feeValueService;
-    
 
+    /**
+     * Save or update a fee category name.
+     *
+     * @param feeKey The FeeKey object containing the fee category data to be saved or updated.
+     * @return A Result object indicating the success of the operation.
+     */
     @Operation(summary = "Save or update fee category name")
     @PostMapping("key/saveOrUpdate")
     public Result saveOrUpdateFeeKey(@RequestBody FeeKey feeKey) {
@@ -35,6 +40,12 @@ public class FeeController {
         return Result.ok();
     }
 
+    /**
+     * Save or update a fee value.
+     *
+     * @param feeValue The FeeValue object containing the fee value data to be saved or updated.
+     * @return A Result object indicating the success of the operation.
+     */
     @Operation(summary = "Save or update fee value")
     @PostMapping("value/saveOrUpdate")
     public Result saveOrUpdateFeeValue(@RequestBody FeeValue feeValue) {
@@ -42,7 +53,11 @@ public class FeeController {
         return Result.ok();
     }
 
-
+    /**
+     * Retrieve the full list of fee categories and their values.
+     *
+     * @return A Result object containing the list of FeeKeyVo objects.
+     */
     @Operation(summary = "Retrieve the full list of fee categories and their values")
     @GetMapping("list")
     public Result<List<FeeKeyVo>> feeInfoList() {
@@ -50,6 +65,12 @@ public class FeeController {
         return Result.ok();
     }
 
+    /**
+     * Delete a fee category by ID.
+     *
+     * @param feeKeyId The ID of the fee category to be deleted.
+     * @return A Result object indicating the success of the operation.
+     */
     @Operation(summary = "Delete a fee category by ID")
     @DeleteMapping("key/deleteById")
     public Result deleteFeeKeyById(@RequestParam Long feeKeyId) {
@@ -63,6 +84,12 @@ public class FeeController {
 
     }
 
+    /**
+     * Delete a fee value by ID.
+     *
+     * @param id The ID of the fee value to be deleted.
+     * @return A Result object indicating the success of the operation.
+     */
     @Operation(summary = "Delete a fee value by ID")
     @DeleteMapping("value/deleteById")
     public Result deleteFeeValueById(@RequestParam Long id) {

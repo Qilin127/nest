@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+/**
+ * Controller for managing room attributes including attribute keys and values.
+ * Provides endpoints to add, update, delete, and list attribute keys and values.
+ */
 @Tag(name = "Room attribute management")
 @RestController
 @RequestMapping("/admin/attr")
@@ -25,6 +28,12 @@ public class AttrController {
     @Autowired
     private AttrValueService attrValueService;
 
+    /**
+     * Add or update an attribute key.
+     *
+     * @param attrKey the attribute key entity to be saved or updated
+     * @return a Result indicating success or failure
+     */
     @Operation(summary = "Add or update attribute names")
     @PostMapping("key/saveOrUpdate")
     public Result saveOrUpdateAttrKey(@RequestBody AttrKey attrKey) {
@@ -32,6 +41,12 @@ public class AttrController {
         return Result.ok();
     }
 
+    /**
+     * Add or update an attribute value.
+     *
+     * @param attrValue the attribute value entity to be saved or updated
+     * @return a Result indicating success or failure
+     */
     @Operation(summary = "Add or update attribute values")
     @PostMapping("value/saveOrUpdate")
     public Result saveOrUpdateAttrValue(@RequestBody AttrValue attrValue) {
@@ -39,6 +54,9 @@ public class AttrController {
         return Result.ok();
     }
 
+    /**
+     * Retrieve the full list of attribute names and values.
+     */
     @Operation(summary = "Retrieve the full list of attribute names and values")
     @GetMapping("list")
     public Result<List<AttrKeyVo>> listAttrInfo() {
@@ -46,6 +64,13 @@ public class AttrController {
         return Result.ok();
     }
 
+    /**
+     * Delete an attribute key (category) by its ID.
+     * This method also deletes all attribute values associated with the given attribute key ID.
+     *
+     * @param attrKeyId the ID of the attribute key to be deleted
+     * @return a Result indicating success of the deletion operation
+     */
     @Operation(summary = "Delete an attribute name (category) by ID")
     @DeleteMapping("key/deleteById")
     public Result removeAttrKeyById(@RequestParam Long attrKeyId) {
@@ -58,6 +83,12 @@ public class AttrController {
         return Result.ok();
     }
 
+    /**
+     * Delete an attribute value (element) by its ID.
+     *
+     * @param id the ID of the attribute value to be deleted
+     * @return a Result indicating success of the deletion operation
+     */
     @Operation(summary = "Delete an attribute value (element) by ID")
     @DeleteMapping("value/deleteById")
     public Result removeAttrValueById(@RequestParam Long id) {
