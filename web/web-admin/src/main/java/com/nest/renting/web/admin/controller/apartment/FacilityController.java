@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @Tag(name = "Facility management")
 @RestController
 @RequestMapping("/admin/facility")
@@ -21,8 +22,6 @@ public class FacilityController {
     private FacilityInfoService facilityInfoService;
     private FacilityInfoService service;
 
-    @Operation(summary = "Retrieve the list of facilities by type")
-    @GetMapping("list")
     /**
      * Retrieves a list of supporting facilities filtered by type (optional).
      *
@@ -30,6 +29,8 @@ public class FacilityController {
      *             If null, all facility records will be returned.
      * @return A Result object containing the list of matching FacilityInfo entries.
      */
+    @Operation(summary = "Retrieve the list of facilities by type")
+    @GetMapping("list")
     public Result<List<FacilityInfo>> listFacility(@RequestParam(required = false) ItemType type) {
         LambdaQueryWrapper<FacilityInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(type != null, FacilityInfo::getType, type);
@@ -37,6 +38,12 @@ public class FacilityController {
         return Result.ok(list);
     }
 
+    /**
+     * Add or update facility information
+     *
+     * @param facilityInfo The FacilityInfo object containing data to be saved or updated
+     * @return A Result object indicating the success of the operation
+     */
     @Operation(summary = "Add or update facility information")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody FacilityInfo facilityInfo) {
@@ -44,6 +51,12 @@ public class FacilityController {
         return Result.ok();
     }
 
+    /**
+     * Delete facility information by ID
+     *
+     * @param id The ID of the facility to be deleted
+     * @return A Result object indicating the success of the operation
+     */
     @Operation(summary = "Delete facility information by ID")
     @DeleteMapping("deleteById")
     public Result removeFacilityById(@RequestParam Long id) {

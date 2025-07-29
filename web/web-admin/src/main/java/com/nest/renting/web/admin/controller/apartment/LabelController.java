@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+/**
+ * Label Management
+ */
 @Tag(name = "Label Management")
 @RestController
 @RequestMapping("/admin/label")
@@ -24,20 +26,38 @@ public class LabelController {
     @Operation(summary = "Retrieve the tag list by type")
     @GetMapping("list")
 
+    /**
+     * Retrieve the tag list filtered by type.
+     *
+     * @param type Optional filter parameter of ItemType to specify the tag type.
+     * @return Result containing a list of LabelInfo objects matching the filter.
+     */
     public Result<List<LabelInfo>> labelList(@RequestParam(required = false) ItemType type) {
         LambdaQueryWrapper<LabelInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(type != null, LabelInfo::getType, type);
         List<LabelInfo> list = service.list(queryWrapper);
         return Result.ok(list);
-        
+
     }
 
+    /**
+     * Add or update tag information.
+     *
+     * @param labelInfo The LabelInfo object containing the tag data to be added or updated.
+     * @return A Result object indicating the success of the operation.
+     */
     @Operation(summary = "Add or update tag information")//Delete tag information by id
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdateLabel(@RequestBody LabelInfo labelInfo) {
         return Result.ok();
     }
 
+    /**
+     * Delete tag information by ID.
+     *
+     * @param id The ID of the tag to be deleted.
+     * @return A Result object indicating the success of the operation.
+     */
     @Operation(summary = "Delete tag information by ID")
     @DeleteMapping("deleteById")
     public Result deleteLabelById(@RequestParam Long id) {
