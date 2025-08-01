@@ -1,5 +1,6 @@
 package com.nest.renting.web.admin.controller.login;
 
+import com.nest.renting.common.context.LoginUserContext;
 import com.nest.renting.common.result.Result;
 import com.nest.renting.web.admin.service.LoginService;
 import com.nest.renting.web.admin.vo.login.CaptchaVo;
@@ -36,7 +37,9 @@ public class LoginController {
     @GetMapping("info")
     public Result<SystemUserInfoVo> info() {
 
-        return Result.ok();
+        SystemUserInfoVo user = service.getSystemUserInfoById(LoginUserContext.getLoginUser().getUserId());
+        return Result.ok(user);
+
     }
 
 }
