@@ -28,12 +28,14 @@ public class LoginController {
     @Operation(summary = "Login")
     @PostMapping("login")
     public Result<String> login(@RequestBody LoginVo loginVo) {
-        return Result.ok();
+        String token = service.login(loginVo);
+        return Result.ok(token);
     }
 
     @Operation(summary = "Get personal information of the logged-in user")
     @GetMapping("info")
     public Result<SystemUserInfoVo> info() {
+
         return Result.ok();
     }
 
