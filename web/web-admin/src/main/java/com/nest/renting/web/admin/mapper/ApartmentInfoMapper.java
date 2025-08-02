@@ -10,7 +10,6 @@ import com.nest.renting.web.admin.vo.apartment.ApartmentQueryVo;
 
 /**
 * @description Operate the Mapper for the database of the table [apartment_info(Apartment information table)]
-* @Entity com.atguigu.lease.model.ApartmentInfo
 */
 public interface ApartmentInfoMapper extends BaseMapper<ApartmentInfo> {
 

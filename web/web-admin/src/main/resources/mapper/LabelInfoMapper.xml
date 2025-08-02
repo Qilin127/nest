@@ -16,4 +16,17 @@
                  AND apartment_id = #{id})
     </select>
 
+    <select id="selectListByRoomId" resultType="com.nest.renting.model.entity.LabelInfo">
+        SELECT id,
+               type,
+               name
+        FROM label_info
+        WHERE is_deleted = 0
+          AND id IN
+              (SELECT label_id
+               FROM room_label
+               WHERE is_deleted = 0
+                 AND room_id = #{id})
+    </select>
+
 </mapper>
