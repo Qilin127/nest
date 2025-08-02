@@ -12,6 +12,8 @@ import java.util.List;
 public interface FacilityInfoMapper extends BaseMapper<FacilityInfo> {
 
     List<FacilityInfo> selectListByIApartmentId(Long id);
+
+    List<FacilityInfo> selectListByRoomId(Long id);
 }
 
 

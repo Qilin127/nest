@@ -19,8 +19,8 @@
         base_table.longitude,
         base_table.phone,
         base_table.is_release,
-        IFNULL(total_count.tc,0)                                 total_room_count,
-        IFNULL(total_count.tc,0) - IFNULL(occupied_count.oc,0)   free_room_count
+        IFNULL(total_count.tc,0) total_room_count,
+        IFNULL(total_count.tc,0) - IFNULL(occupied_count.oc,0) free_room_count
         FROM (SELECT id,
         name,
         introduction,
