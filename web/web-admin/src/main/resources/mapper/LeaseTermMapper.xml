@@ -3,5 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nest.renting.web.admin.mapper.LeaseTermMapper">
-
+    <select id="selectListByRoomId" resultType="com.nest.renting.model.entity.LeaseTerm">
+        SELECT id,
+               month_count,
+               unit
+        FROM lease_term
+        WHERE is_deleted = 0
+          AND id in (SELECT lease_term_id
+                     FROM room_lease_term
+                     WHERE is_deleted = 0
+                       AND room_id = #{id})
+    </select>
 </mapper>
