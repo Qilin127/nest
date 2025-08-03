@@ -72,7 +72,7 @@
             <artifactId>jjwt-jackson</artifactId>
             <scope>runtime</scope>
         </dependency>
-
+      
     </dependencies>
 
 

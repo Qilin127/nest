@@ -13,4 +13,6 @@ import com.nest.renting.web.admin.vo.system.user.SystemUserQueryVo;
 public interface SystemUserMapper extends BaseMapper<SystemUser> {
 
     IPage<SystemUserItemVo> pageSystemUser(IPage<SystemUser> page, SystemUserQueryVo queryVo);
+
+    SystemUser selectOneByUsername(String username);
 }
