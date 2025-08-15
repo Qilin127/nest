@@ -9,13 +9,13 @@ spring:
     username: # needs to be filled in
     password: # needs to be filled in
     hikari:
-      connection-test-query: SELECT 1 # 自动检测连接
-      connection-timeout: 60000 #数据库连接超时时间,默认30秒
-      idle-timeout: 500000 #空闲连接存活最大时间，默认600000（10分钟）
-      max-lifetime: 540000 #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
-      maximum-pool-size: 12 #连接池最大连接数，默认是10
-      minimum-idle: 10 #最小空闲连接数量
-      pool-name: SPHHikariPool # 连接池名称
+      connection-test-query: SELECT 1
+      connection-timeout: 60000
+      idle-timeout: 500000
+      max-lifetime: 540000
+      maximum-pool-size: 12
+      minimum-idle: 10
+      pool-name: SPHHikariPool
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Australia/Sydney
