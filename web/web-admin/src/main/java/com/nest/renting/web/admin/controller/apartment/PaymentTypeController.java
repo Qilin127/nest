@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+/**
+ * Payment Method Management
+ */
 @Tag(name = "Payment method management")
 @RequestMapping("/admin/payment")
 @RestController
@@ -20,6 +22,11 @@ public class PaymentTypeController {
     @Autowired
     private PaymentTypeService paymentTypeService;
 
+    /**
+     * Retrieve the full list of payment methods.
+     *
+     * @return Result containing a list of all PaymentType entities.
+     */
     @Operation(summary = "Retrieve the full list of payment methods")
     @GetMapping("list")
     public Result<List<PaymentType>> listPaymentType() {
@@ -27,6 +34,12 @@ public class PaymentTypeController {
         return Result.ok(list);
     }
 
+    /**
+     * Save or update a payment method.
+     *
+     * @param paymentType The PaymentType object containing the payment method data to be saved or updated.
+     * @return A Result object indicating the success of the operation.
+     */
     @Operation(summary = "Save or update a payment method")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdatePaymentType(@RequestBody PaymentType paymentType) {
@@ -34,6 +47,12 @@ public class PaymentTypeController {
         return Result.ok();
     }
 
+    /**
+     * Delete a payment method by ID.
+     *
+     * @param id The ID of the payment method to be deleted.
+     * @return A Result object indicating the success of the operation.
+     */
     @Operation(summary = "Delete a payment method by ID")
     @DeleteMapping("deleteById")
     public Result deletePaymentById(@RequestParam Long id) {

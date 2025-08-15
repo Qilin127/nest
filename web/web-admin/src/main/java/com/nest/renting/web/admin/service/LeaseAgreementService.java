@@ -1,6 +1,9 @@
 package com.nest.renting.web.admin.service;
 
 import com.nest.renting.model.entity.LeaseAgreement;
+import com.nest.renting.web.admin.vo.agreement.AgreementQueryVo;
+import com.nest.renting.web.admin.vo.agreement.AgreementVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -8,4 +11,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface LeaseAgreementService extends IService<LeaseAgreement> {
 
+    IPage<AgreementVo> pageAgreement(IPage<AgreementVo> agreementVoIPage, AgreementQueryVo queryVo);
+
+    AgreementVo getAgreementById(Long id);
 }
+
