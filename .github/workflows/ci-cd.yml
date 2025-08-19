@@ -27,5 +27,5 @@ jobs:
       - name: Run Java code
         run: |
           cd web/web-admin/src/main/java
-          javac com/nest/renting/web/admin/test/
+          javac com/nest/renting/web/admin/test/CICDTest.java
           java com.nest.renting.web.admin.test.CICDTest
