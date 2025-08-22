@@ -1,6 +1,5 @@
 package com.nest.renting.web.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.nest.renting.common.constant.RedisConstant;
 import com.nest.renting.common.exception.RentingException;
 import com.nest.renting.common.result.ResultCodeEnum;
@@ -13,14 +12,11 @@ import com.nest.renting.web.admin.vo.login.CaptchaVo;
 import com.nest.renting.web.admin.vo.login.LoginVo;
 import com.nest.renting.web.admin.vo.system.user.SystemUserInfoVo;
 import com.wf.captcha.SpecCaptcha;
-import com.wf.captcha.base.Captcha;
-import jakarta.annotation.Resource;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +26,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-
     @Autowired
     private SystemUserMapper systemUserMapper;
 
@@ -85,7 +80,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public SystemUserInfoVo getSystemUserInfoById(Long userId) {
+    public SystemUserInfoVo getLoginUserInfoById(Long userId) {
         SystemUser systemUser = systemUserMapper.selectById(userId);
         SystemUserInfoVo systemUserInfoVo = new SystemUserInfoVo();
         BeanUtils.copyProperties(systemUser, systemUserInfoVo);

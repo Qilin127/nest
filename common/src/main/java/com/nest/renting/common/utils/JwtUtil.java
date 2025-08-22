@@ -9,28 +9,30 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    private static long tokenExpiration = 60 * 60 * 1000L;
-    private static SecretKey tokenSignKey = Keys.hmacShaKeyFor("M0PKKI6pYGVWWfDZw90a0lTpGYX1d4AQ".getBytes());
 
-    public static String createToken(Long userId, String username) {
-        String token = Jwts.builder().
-                setSubject("USER_INFO").
-                setExpiration(new Date(System.currentTimeMillis() + tokenExpiration)).
-                claim("userId", userId).
-                claim("username", username).
-                signWith(tokenSignKey).
-                compressWith(CompressionCodecs.GZIP).
-                compact();
-        return token;
+    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor("LTGN6e2EBmPnNBFW5UCNlWHa7PDgpSj2".getBytes());
+
+    public static String createToken (Long userId, String username) {
+        String jwt = Jwts.builder()
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7))
+                .setSubject("LOGIN_USER")
+                .claim("userId", userId)
+                .claim("username", username)
+                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+                .compact();
+
+        return jwt;
     }
 
-    public static Claims parseToken(String token) {
-        try {
-            Jws<Claims> claimsJws = Jwts.parserBuilder().
-                    setSigningKey(tokenSignKey).
-                    build().parseClaimsJws(token);
-            return claimsJws.getBody();
+    public static Claims parseToken (String token) {
+        if (token == null) {
+            throw new RentingException(ResultCodeEnum.ADMIN_LOGIN_AUTH);
+        }
 
+        try {
+            JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(SECRET_KEY).build();
+            Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);
+            return claimsJws.getBody();
         } catch (ExpiredJwtException e) {
             throw new RentingException(ResultCodeEnum.TOKEN_EXPIRED);
         } catch (JwtException e) {

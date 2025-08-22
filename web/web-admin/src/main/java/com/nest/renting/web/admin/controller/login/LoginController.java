@@ -1,6 +1,6 @@
 package com.nest.renting.web.admin.controller.login;
 
-import com.nest.renting.common.context.LoginUserContext;
+import com.nest.renting.common.login.LoginUserHolder;
 import com.nest.renting.common.result.Result;
 import com.nest.renting.web.admin.service.LoginService;
 import com.nest.renting.web.admin.vo.login.CaptchaVo;
@@ -17,29 +17,28 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     @Autowired
-    private LoginService service;
+    private LoginService loginService;
 
     @Operation(summary = "Retrieve graphical captcha")
     @GetMapping("login/captcha")
     public Result<CaptchaVo> getCaptcha() {
-        CaptchaVo captcha = service.getCaptcha();
-        return Result.ok(captcha);
+        CaptchaVo captchaVo = loginService.getCaptcha();
+        return Result.ok(captchaVo);
     }
 
     @Operation(summary = "Login")
     @PostMapping("login")
     public Result<String> login(@RequestBody LoginVo loginVo) {
-        String token = service.login(loginVo);
-        return Result.ok(token);
+        String jwt = loginService.login(loginVo);
+        return Result.ok(jwt);
     }
 
     @Operation(summary = "Get personal information of the logged-in user")
     @GetMapping("info")
     public Result<SystemUserInfoVo> info() {
-
-        SystemUserInfoVo user = service.getSystemUserInfoById(LoginUserContext.getLoginUser().getUserId());
-        return Result.ok(user);
-
+        Long userId = LoginUserHolder.getLoginUser().getUserId();
+        SystemUserInfoVo systemUserInfoVo = loginService.getLoginUserInfoById(userId);
+        return Result.ok(systemUserInfoVo);
     }
 
 }
