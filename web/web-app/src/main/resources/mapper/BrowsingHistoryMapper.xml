@@ -4,4 +4,40 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nest.renting.web.app.mapper.BrowsingHistoryMapper">
 
+    <!--注意:room_id字段需要显式的映射两次-->
+    <resultMap id="HistoryItemVoMap" type="com.nest.renting.web.app.vo.history.HistoryItemVo" autoMapping="true">
+        <id property="id" column="id"/>
+        <result property="roomId" column="room_id"/>
+        <collection property="roomGraphVoList" ofType="com.nest.renting.web.app.vo.graph.GraphVo"
+                    select="listGraphVoByRoomId"
+                    column="room_id" autoMapping="true"/>
+    </resultMap>
+
+    <select id="pageHistoryItemByUserId" resultMap="HistoryItemVoMap">
+        select bh.id,
+               bh.user_id,
+               bh.room_id,
+               bh.browse_time,
+               ri.room_number,
+               ri.rent,
+               ai.name apartment_name,
+               ai.province_name,
+               ai.city_name,
+               ai.district_name
+        from browsing_history bh
+                 left join room_info ri on bh.room_id = ri.id
+                 left join apartment_info ai on ri.apartment_id = ai.id
+        where bh.is_deleted = 0
+        order by bh.browse_time desc
+    </select>
+
+    <select id="listGraphVoByRoomId" resultType="com.nest.renting.web.app.vo.graph.GraphVo">
+        select name,
+               url
+        from graph_info
+        where is_deleted = 0
+          and item_type = ${@com.nest.renting.model.enums.ItemType@ROOM.getCode()}
+          and item_id = #{room_id}
+    </select>
+
 </mapper>
