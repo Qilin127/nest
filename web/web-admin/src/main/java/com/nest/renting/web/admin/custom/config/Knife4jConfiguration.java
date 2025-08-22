@@ -22,12 +22,9 @@ public class Knife4jConfiguration {
 
         return new OpenAPI().info(
                 new Info()
-                        .title("back-office system API")
+                        .title("Admin Panel API")
                         .version("1.0")
-                        .description("back-office system API")
-                        .termsOfService("http://doc.xiaominfo.com")
-                        .license(new License().name("Apache 2.0").url("http://doc.xiaominfo.com")))
-                        .components(new Components().addSecuritySchemes("access_token", new SecurityScheme().type(SecurityScheme.Type.APIKEY).in(SecurityScheme.In.HEADER).name("access_token")));
+                        .description("Admin Panel API"));
     }
 
     @Bean
