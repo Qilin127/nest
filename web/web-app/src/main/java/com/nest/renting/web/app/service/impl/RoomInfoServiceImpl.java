@@ -10,9 +10,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
-        implements RoomInfoService {
+public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo> implements RoomInfoService {
+
 }
+
+//  在RoomInfoServiceImpl中的getRoomDetailById方法的最后增加如下内容
+//  browsingHistoryService.saveHistory(LoginUserContext.getLoginUser().getUserId(), id);
 
 
 
