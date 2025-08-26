@@ -3,10 +3,10 @@ name: Local CI-CD test
 on:
   push:
     branches:
-      - '*'
+      - master-close
   pull_request:
     branches:
-      - '*'
+      - master-close
 
 jobs:
   build-and-run:
