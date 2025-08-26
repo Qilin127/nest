@@ -1,0 +1,31 @@
+name: Local CI-CD test
+
+on:
+  push:
+    branches:
+      - master-close
+  pull_request:
+    branches:
+      - master-close
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Run Java code
+        run: |
+          cd web/web-admin/src/main/java
+          javac com/nest/renting/web/admin/test/CICDTest.java
+          java com.nest.renting.web.admin.test.CICDTest
