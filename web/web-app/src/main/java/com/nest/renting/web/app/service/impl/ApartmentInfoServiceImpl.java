@@ -4,11 +4,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nest.renting.model.entity.ApartmentInfo;
 import com.nest.renting.web.app.mapper.*;
 import com.nest.renting.web.app.service.ApartmentInfoService;
+import com.nest.renting.web.app.vo.apartment.ApartmentItemVo;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, ApartmentInfo>
-        implements ApartmentInfoService {
+public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, ApartmentInfo> implements ApartmentInfoService {
+
+    @Override
+    public ApartmentItemVo getApartmentItemVoById(Long apartmentId) {
+        return null;
+    }
 
 }
 

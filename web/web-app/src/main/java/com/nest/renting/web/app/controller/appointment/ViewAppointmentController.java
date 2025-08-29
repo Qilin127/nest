@@ -3,6 +3,7 @@ package com.nest.renting.web.app.controller.appointment;
 import com.nest.renting.common.login.LoginUserHolder;
 import com.nest.renting.model.entity.ViewAppointment;
 import com.nest.renting.web.app.service.ViewAppointmentService;
+import com.nest.renting.web.app.vo.appointment.AppointmentDetailVo;
 import com.nest.renting.web.app.vo.appointment.AppointmentItemVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,7 +39,8 @@ public class ViewAppointmentController {
     @GetMapping("/getDetailById")
     @Operation(summary = "Query reservation details by ID")
     public Result getDetailById(Long id) {
-        return Result.ok();
+        AppointmentDetailVo detail = service.getAppointmentDetailVoById(id);
+        return Result.ok(detail);
     }
 
 }
