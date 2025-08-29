@@ -1,8 +1,11 @@
 package com.nest.renting.web.app.controller.appointment;
 
+import com.nest.renting.common.login.LoginUserHolder;
 import com.nest.renting.model.entity.ViewAppointment;
+import com.nest.renting.web.app.service.ViewAppointmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.nest.renting.common.result.Result;
 
@@ -12,9 +15,14 @@ import com.nest.renting.common.result.Result;
 @RequestMapping("/app/appointment")
 public class ViewAppointmentController {
 
+    @Autowired
+    private ViewAppointmentService service;
+
     @Operation(summary = "Save or update viewing appointment")
     @PostMapping("/saveOrUpdate")
     public Result saveOrUpdate(@RequestBody ViewAppointment viewAppointment) {
+        viewAppointment.setUserId(LoginUserHolder.getLoginUser().getUserId());
+        service.saveOrUpdate(viewAppointment);
         return Result.ok();
     }
 
