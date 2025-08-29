@@ -3,11 +3,13 @@ package com.nest.renting.web.app.controller.appointment;
 import com.nest.renting.common.login.LoginUserHolder;
 import com.nest.renting.model.entity.ViewAppointment;
 import com.nest.renting.web.app.service.ViewAppointmentService;
+import com.nest.renting.web.app.vo.appointment.AppointmentItemVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.nest.renting.common.result.Result;
+import java.util.List;
 
 
 @Tag(name = "House viewing appointment information")
@@ -29,7 +31,8 @@ public class ViewAppointmentController {
     @Operation(summary = "Query personal appointment viewing list")
     @GetMapping("/listItem")
     public Result listItem() {
-        return Result.ok();
+        List<AppointmentItemVo> list = service.listAppointmentItemByUserId(LoginUserHolder.getLoginUser().getUserId());
+        return Result.ok(list);
     }
 
     @GetMapping("/getDetailById")
