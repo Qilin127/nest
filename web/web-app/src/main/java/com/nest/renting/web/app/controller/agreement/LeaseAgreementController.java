@@ -1,21 +1,30 @@
 package com.nest.renting.web.app.controller.agreement;
 
+import com.nest.renting.common.login.LoginUserHolder;
 import com.nest.renting.model.entity.LeaseAgreement;
 import com.nest.renting.model.enums.LeaseStatus;
+import com.nest.renting.web.app.service.LeaseAgreementService;
+import com.nest.renting.web.app.vo.agreement.AgreementItemVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.nest.renting.common.result.Result;
+import java.util.List;
 
 @RestController
 @RequestMapping("/app/agreement")
 @Tag(name = "Lease Information")
 public class LeaseAgreementController {
 
+    @Autowired
+    LeaseAgreementService service;
+
     @Operation(summary = "Get a list of basic information about individual leases")
     @GetMapping("/listItem")
-    public Result listItem() {
-        return Result.ok();
+    public Result<List<AgreementItemVo>> listItem() {
+        List<AgreementItemVo> list = service.listAgreementItemByPhone(LoginUserHolder.getLoginUser().getUsername());
+        return Result.ok(list);
     }
 
     @Operation(summary = "Get lease details by id")
