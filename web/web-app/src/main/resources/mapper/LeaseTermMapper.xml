@@ -4,5 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nest.renting.web.app.mapper.LeaseTermMapper">
 
+    <select id="selectLeaseTermById" resultType="com.nest.renting.model.entity.LeaseTerm">
+        select id,
+               month_count,
+               unit
+        from lease_term
+        where id = #{id}
+    </select>
 
 </mapper>

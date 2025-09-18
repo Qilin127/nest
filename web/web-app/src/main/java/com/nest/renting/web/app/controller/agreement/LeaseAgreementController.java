@@ -4,6 +4,7 @@ import com.nest.renting.common.login.LoginUserHolder;
 import com.nest.renting.model.entity.LeaseAgreement;
 import com.nest.renting.model.enums.LeaseStatus;
 import com.nest.renting.web.app.service.LeaseAgreementService;
+import com.nest.renting.web.app.vo.agreement.AgreementDetailVo;
 import com.nest.renting.web.app.vo.agreement.AgreementItemVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,8 +30,9 @@ public class LeaseAgreementController {
 
     @Operation(summary = "Get lease details by id")
     @GetMapping("/getDetailById")
-    public Result getDetailById(@RequestParam Long id) {
-        return Result.ok();
+    public Result<AgreementDetailVo> getDetailById(@RequestParam Long id) {
+        AgreementDetailVo agreementDetailVo = service.getAgreementDetailById(id);
+        return Result.ok(agreementDetailVo);
     }
 
     @Operation(summary = "Update the lease status based on the id", description = "To confirm the lease and terminate the lease early")
