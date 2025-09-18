@@ -49,6 +49,7 @@ public class LeaseAgreementController {
     @Operation(summary = "Save or update a lease", description = "For renewal")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody LeaseAgreement leaseAgreement) {
+        service.saveOrUpdate(leaseAgreement);
         return Result.ok();
     }
 
