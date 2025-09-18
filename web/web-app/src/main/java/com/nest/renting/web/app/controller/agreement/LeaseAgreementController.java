@@ -1,5 +1,6 @@
 package com.nest.renting.web.app.controller.agreement;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.nest.renting.common.login.LoginUserHolder;
 import com.nest.renting.model.entity.LeaseAgreement;
 import com.nest.renting.model.enums.LeaseStatus;
@@ -38,6 +39,10 @@ public class LeaseAgreementController {
     @Operation(summary = "Update the lease status based on the id", description = "To confirm the lease and terminate the lease early")
     @PostMapping("/updateStatusById")
     public Result updateStatusById(@RequestParam Long id, @RequestParam LeaseStatus leaseStatus) {
+        LambdaUpdateWrapper<LeaseAgreement> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(LeaseAgreement::getId, id);
+        updateWrapper.set(LeaseAgreement::getStatus, leaseStatus);
+        service.update(updateWrapper);
         return Result.ok();
     }
 
