@@ -24,7 +24,7 @@ public class PaymentTypeServiceImpl extends ServiceImpl<PaymentTypeMapper, Payme
     /**
      * Get available payment types by room ID
      * @param id Room ID
-     * @return List of PaymentType
+     * @return List of PaymentTypes
      */
     @Override
     public List<PaymentType> listByRoomId(Long id) {
