@@ -7,11 +7,15 @@ import com.nest.renting.model.entity.LabelInfo;
 import com.nest.renting.model.enums.ItemType;
 import com.nest.renting.web.app.mapper.*;
 import com.nest.renting.web.app.service.ApartmentInfoService;
+
 import com.nest.renting.web.app.vo.apartment.ApartmentDetailVo;
 import com.nest.renting.web.app.vo.apartment.ApartmentItemVo;
 import com.nest.renting.web.app.vo.graph.GraphVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.nest.renting.web.app.vo.apartment.ApartmentItemVo;
+
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -28,8 +32,13 @@ import java.util.List;
  * Date: September 22, 2025
  */
 @Service
-public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, ApartmentInfo>
-        implements ApartmentInfoService {
+public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, ApartmentInfo> implements ApartmentInfoService {
+
+    @Override
+    public ApartmentItemVo getApartmentItemVoById(Long apartmentId) {
+        // Delegate to the main implementation
+        return selectApartmentItemVoById(apartmentId);
+    }
 
     @Autowired
     private ApartmentInfoMapper apartmentInfoMapper;

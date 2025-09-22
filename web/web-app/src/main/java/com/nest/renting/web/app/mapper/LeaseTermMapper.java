@@ -5,6 +5,8 @@ import com.nest.renting.model.entity.LeaseTerm;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * LeaseTermMapper
  *
@@ -15,7 +17,16 @@ import java.util.List;
  * Author: Yuze Wang
  * Date: September 22, 2025
  */
+@Repository
 public interface LeaseTermMapper extends BaseMapper<LeaseTerm> {
+
+    /**
+     * Retrieve a lease term by its unique ID.
+     *
+     * @param id the lease term ID
+     * @return the {@link LeaseTerm} entity
+     */
+    LeaseTerm selectLeaseTermById(Long id);
 
     /**
      * Retrieve a list of lease terms for a given room.
@@ -25,7 +36,6 @@ public interface LeaseTermMapper extends BaseMapper<LeaseTerm> {
      */
     List<LeaseTerm> selectListByRoomId(Long id);
 }
-
 
 
 

@@ -1,7 +1,6 @@
 package com.nest.renting.web.app.custom.interceptor;
 
-import com.nest.renting.common.context.LoginUser;
-import com.nest.renting.common.context.LoginUserContext;
+import com.nest.renting.common.login.LoginUserHolder;
 import com.nest.renting.common.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,13 +18,13 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         Claims claims = JwtUtil.parseToken(token);
         Long userId = claims.get("userId", Long.class);
         String username = claims.get("username", String.class);
-        LoginUserContext.setLoginUser(new LoginUser(userId, username));
+        LoginUserHolder.setLoginUser(new com.nest.renting.common.login.LoginUser(userId, username));
 
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        LoginUserContext.clear();
+        LoginUserHolder.clear();
     }
 }

@@ -4,4 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nest.renting.web.app.mapper.ViewAppointmentMapper">
 
+    <resultMap id="LeaseAgreementItemVoMap" type="com.nest.renting.web.app.vo.appointment.AppointmentItemVo"
+               autoMapping="true">
+        <id property="id" column="id"/>
+        <collection property="graphVoList" ofType="com.nest.renting.web.app.vo.graph.GraphVo">
+            <result property="name" column="graph_name"/>
+            <result property="url" column="graph_url"/>
+        </collection>
+    </resultMap>
+
+    <select id="listAppointmentItemByUserId" resultMap="LeaseAgreementItemVoMap">
+        select va.id,
+               va.appointment_time,
+               va.appointment_status,
+               ai.name apartment_name,
+               gi.name graph_name,
+               gi.url  graph_url
+        from view_appointment va
+                 left join apartment_info ai on va.apartment_id = ai.id
+                 left join graph_info gi
+                           on ai.id = gi.item_id
+                               and gi.item_type = ${@com.nest.renting.model.enums.ItemType@APARTMENT.getCode()}
+        where va.is_deleted = 0
+          and gi.is_deleted = 0
+          and user_id = #{userId}
+        order by va.create_time desc
+    </select>
+
 </mapper>

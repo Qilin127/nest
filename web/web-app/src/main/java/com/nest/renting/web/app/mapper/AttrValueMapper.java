@@ -6,6 +6,8 @@ import com.nest.renting.web.app.vo.attr.AttrValueVo;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * AttrValueMapper
  *
@@ -16,6 +18,7 @@ import java.util.List;
  * Author: Yuze Wang
  * Date: September 22, 2025
  */
+@Repository
 public interface AttrValueMapper extends BaseMapper<AttrValue> {
 
     /**

@@ -8,17 +8,20 @@ import com.nest.renting.web.app.vo.room.RoomQueryVo;
 
 import java.math.BigDecimal;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * RoomInfoMapper
  *
  * Data access layer for performing database operations
  * on the {@link RoomInfo} entity (room information table).
- * Provides custom query methods for paginated room listings
- * and retrieving minimum rent values by apartment ID.
+ * Provides custom query methods for paginated room listings,
+ * retrieving minimum rent values, and fetching room details.
  *
  * Author: Yuze Wang
  * Date: September 22, 2025
  */
+@Repository
 public interface RoomInfoMapper extends BaseMapper<RoomInfo> {
 
     /**
@@ -42,8 +45,16 @@ public interface RoomInfoMapper extends BaseMapper<RoomInfo> {
      * Retrieve a paginated list of rooms belonging to a specific apartment.
      *
      * @param roomItemVoIPage pagination parameters (current page and page size)
-     * @param id the apartment ID
+     * @param apartmentId the apartment ID
      * @return a paginated list of {@link RoomItemVo} belonging to the apartment
      */
-    IPage<RoomItemVo> pageItemByApartmentId(IPage<RoomItemVo> roomItemVoIPage, Long id);
+    IPage<RoomItemVo> pageItemByApartmentId(IPage<RoomItemVo> roomItemVoIPage, Long apartmentId);
+
+    /**
+     * Retrieve a single room entity by its unique ID.
+     *
+     * @param roomId the room ID
+     * @return the {@link RoomInfo} entity
+     */
+    RoomInfo selectRoomById(Long roomId);
 }

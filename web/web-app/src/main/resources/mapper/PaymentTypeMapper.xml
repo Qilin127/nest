@@ -4,16 +4,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nest.renting.web.app.mapper.PaymentTypeMapper">
 
+    <!-- Query payment types available for a given room -->
     <select id="selectListByRoomId" resultType="com.nest.renting.model.entity.PaymentType">
         select id,
-        name,
-        pay_month_count,
-        additional_info
+               name,
+               pay_month_count,
+               additional_info
         from payment_type
         where is_deleted = 0
-        and id in (select payment_type_id
-        from room_payment_type
-        where is_deleted = 0
-        and room_id = #{id})
+          and id in (select payment_type_id
+                       from room_payment_type
+                      where is_deleted = 0
+                        and room_id = #{id})
     </select>
-</mapper>>
+
+    <!-- Query a single payment type by its ID -->
+    <select id="selectPaymentTypeById" resultType="com.nest.renting.model.entity.PaymentType">
+        select id,
+               name,
+               pay_month_count,
+               additional_info
+        from payment_type
+        where id = #{id}
+    </select>
+
+</mapper>

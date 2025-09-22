@@ -2,6 +2,7 @@ package com.nest.renting.web.app.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.nest.renting.model.entity.DistrictInfo;
+import org.springframework.stereotype.Repository;
 
 /**
  * Mapper interface for the {@code district_info} table.
@@ -12,6 +13,7 @@ import com.nest.renting.model.entity.DistrictInfo;
  * @author Yuze Wang
  * @since 2025-08-22
  */
+@Repository
 public interface DistrictInfoMapper extends BaseMapper<DistrictInfo> {
 
 }

@@ -4,4 +4,43 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nest.renting.web.app.mapper.LeaseAgreementMapper">
 
+    <resultMap id="AgreementItemVoMap" type="com.nest.renting.web.app.vo.agreement.AgreementItemVo" autoMapping="true">
+        <id property="id" column="id"/>
+        <collection property="roomGraphVoList" ofType="com.nest.renting.web.app.vo.graph.GraphVo">
+            <result property="name" column="graph_name"/>
+            <result property="url" column="graph_url"/>
+        </collection>
+    </resultMap>
+
+    <select id="listAgreementItemByPhone" resultMap="AgreementItemVoMap">
+        select la.id,
+               la.source_type,
+               la.status                                                    lease_status,
+               la.lease_start_date,
+               la.lease_end_date,
+               la.rent,
+               ai.name                                                      apartment_name,
+               ri.room_number,
+               gi.name                                                      graph_name,
+               gi.url                                                       graph_url,
+               if(status = ${@com.nest.renting.model.enums.LeaseStatus@SIGNED.getCode()}
+                      and cnt.signed = 1 and cnt.renewing = 0, true, false) is_renewable
+        from lease_agreement la
+                 left join apartment_info ai on la.apartment_id = ai.id
+                 left join room_info ri on la.room_id = ri.id
+                 left join graph_info gi on gi.item_id = la.room_id and gi.item_type = 2
+                 left join(select sum(if(status = ${@com.nest.renting.model.enums.LeaseStatus@SIGNED.getCode()}, 1,
+                                         0)) signed,
+                                  sum(if(status = ${@com.nest.renting.model.enums.LeaseStatus@RENEWING.getCode()}, 1,
+                                         0)) renewing
+                           from lease_agreement
+                           where is_deleted = 0
+                             and phone = #{phone}) cnt
+                          on true
+        where la.is_deleted = 0
+          and gi.is_deleted = 0
+          and la.phone = #{phone}
+        order by la.create_time desc
+    </select>
+
 </mapper>

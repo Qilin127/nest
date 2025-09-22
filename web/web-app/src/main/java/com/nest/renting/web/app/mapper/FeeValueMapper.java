@@ -16,6 +16,9 @@ import java.util.List;
  * Author: Yuze Wang
  * Date: September 22, 2025
  */
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface FeeValueMapper extends BaseMapper<FeeValue> {
 
     /**

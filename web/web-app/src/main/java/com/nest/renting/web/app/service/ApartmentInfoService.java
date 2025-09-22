@@ -19,11 +19,21 @@ public interface ApartmentInfoService extends IService<ApartmentInfo> {
 
     /**
      * Retrieve a simplified apartment item view object by apartment ID.
+     * (Primary implementation)
      *
      * @param apartmentId the apartment ID
      * @return an {@link ApartmentItemVo} representing the apartment item
      */
     ApartmentItemVo selectApartmentItemVoById(Long apartmentId);
+
+    /**
+     * Retrieve a simplified apartment item view object by apartment ID.
+     * (Alias for selectApartmentItemVoById)
+     *
+     * @param apartmentId the apartment ID
+     * @return an {@link ApartmentItemVo} representing the apartment item
+     */
+    ApartmentItemVo getApartmentItemVoById(Long apartmentId);
 
     /**
      * Retrieve detailed information about an apartment by its ID.

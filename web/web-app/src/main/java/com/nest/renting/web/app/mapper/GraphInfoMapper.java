@@ -7,6 +7,8 @@ import com.nest.renting.web.app.vo.graph.GraphVo;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * GraphInfoMapper
  *
@@ -17,6 +19,8 @@ import java.util.List;
  * Author: Yuze Wang
  * Date: September 22, 2025
  */
+
+@Repository
 public interface GraphInfoMapper extends BaseMapper<GraphInfo> {
 
     /**

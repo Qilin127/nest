@@ -2,6 +2,7 @@ package com.nest.renting.web.app.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.nest.renting.model.entity.PaymentType;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * Author: Yuze Wang
  * Date: September 22, 2025
  */
+@Repository
 public interface PaymentTypeMapper extends BaseMapper<PaymentType> {
 
     /**
@@ -24,6 +26,8 @@ public interface PaymentTypeMapper extends BaseMapper<PaymentType> {
      * @return a list of {@link PaymentType} linked to the room
      */
     List<PaymentType> selectListByRoomId(Long id);
+
+    PaymentType selectPaymentTypeById(Long id);
 }
 
 
