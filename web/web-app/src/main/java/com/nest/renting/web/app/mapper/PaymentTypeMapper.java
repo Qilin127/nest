@@ -7,14 +7,24 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author Yuze Wang
- * @description Mapper for database operations on the table 【payment_type (Payment Type Table)】
- * @createDate 2025-09-15
- * @Entity com.nest.renting.model.entity.PaymentType
+ * PaymentTypeMapper
+ *
+ * Data access layer for performing database operations
+ * on the {@link PaymentType} entity (payment type table).
+ * Provides methods to query payment types associated with specific rooms.
+ *
+ * Author: Yuze Wang
+ * Date: September 22, 2025
  */
 @Repository
 public interface PaymentTypeMapper extends BaseMapper<PaymentType> {
 
+    /**
+     * Retrieve a list of payment types available for a given room.
+     *
+     * @param id the room ID
+     * @return a list of {@link PaymentType} linked to the room
+     */
     List<PaymentType> selectListByRoomId(Long id);
 
     PaymentType selectPaymentTypeById(Long id);
