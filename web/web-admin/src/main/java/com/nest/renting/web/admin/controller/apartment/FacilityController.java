@@ -20,7 +20,6 @@ public class FacilityController {
 
     @Autowired
     private FacilityInfoService facilityInfoService;
-    private FacilityInfoService service;
 
     /**
      * Retrieves a list of supporting facilities filtered by type (optional).
@@ -32,9 +31,9 @@ public class FacilityController {
     @Operation(summary = "Retrieve the list of facilities by type")
     @GetMapping("list")
     public Result<List<FacilityInfo>> listFacility(@RequestParam(required = false) ItemType type) {
-        LambdaQueryWrapper<FacilityInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(type != null, FacilityInfo::getType, type);
-        List<FacilityInfo> list = service.list(queryWrapper);
+        LambdaQueryWrapper<FacilityInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(type != null, FacilityInfo::getType, type);
+        List<FacilityInfo> list = facilityInfoService.list(lambdaQueryWrapper);
         return Result.ok(list);
     }
 
@@ -47,7 +46,7 @@ public class FacilityController {
     @Operation(summary = "Add or update facility information")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody FacilityInfo facilityInfo) {
-        service.saveOrUpdate(facilityInfo);
+        facilityInfoService.saveOrUpdate(facilityInfo);
         return Result.ok();
     }
 
@@ -60,7 +59,7 @@ public class FacilityController {
     @Operation(summary = "Delete facility information by ID")
     @DeleteMapping("deleteById")
     public Result removeFacilityById(@RequestParam Long id) {
-        service.removeById(id);
+        facilityInfoService.removeById(id);
         return Result.ok();
     }
 
