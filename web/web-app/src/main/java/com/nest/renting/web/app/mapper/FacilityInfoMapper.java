@@ -6,18 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * FacilityInfoMapper
- *
- * Data access layer for performing database operations
- * on the {@link FacilityInfo} entity (facility information table).
- * Provides methods to query facility records associated with rooms or apartments.
- *
- * Author: Yuze Wang
- * Date: September 22, 2025
- */
+
 @Repository
 public interface FacilityInfoMapper extends BaseMapper<FacilityInfo> {
+    List<FacilityInfo> selectListByApartmentId(Long id);
 
     /**
      * Retrieve a list of facilities associated with a specific room.

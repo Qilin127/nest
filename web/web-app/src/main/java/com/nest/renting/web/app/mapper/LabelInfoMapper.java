@@ -6,18 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * LabelInfoMapper
- *
- * Data access layer for performing database operations
- * on the {@link LabelInfo} entity (label information table).
- * Provides methods to query labels associated with rooms or apartments.
- *
- * Author: Yuze Wang
- * Date: September 22, 2025
- */
+
 @Repository
 public interface LabelInfoMapper extends BaseMapper<LabelInfo> {
+    List<LabelInfo> selectListByApartmentId(Long apartmentId);
 
     /**
      * Retrieve a list of labels associated with a specific room.

@@ -35,11 +35,7 @@ public interface ApartmentInfoService extends IService<ApartmentInfo> {
      */
     ApartmentItemVo getApartmentItemVoById(Long apartmentId);
 
-    /**
-     * Retrieve detailed information about an apartment by its ID.
-     *
-     * @param id the apartment ID
-     * @return an {@link ApartmentDetailVo} containing apartment details
-     */
     ApartmentDetailVo getDetailById(Long id);
+
+
 }

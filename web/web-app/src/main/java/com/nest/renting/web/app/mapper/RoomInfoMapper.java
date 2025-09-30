@@ -10,17 +10,9 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Repository;
 
-/**
- * RoomInfoMapper
- *
- * Data access layer for performing database operations
- * on the {@link RoomInfo} entity (room information table).
- * Provides custom query methods for paginated room listings,
- * retrieving minimum rent values, and fetching room details.
- *
- * Author: Yuze Wang
- * Date: September 22, 2025
- */
+import java.math.BigDecimal;
+
+
 @Repository
 public interface RoomInfoMapper extends BaseMapper<RoomInfo> {
 
@@ -57,4 +49,7 @@ public interface RoomInfoMapper extends BaseMapper<RoomInfo> {
      * @return the {@link RoomInfo} entity
      */
     RoomInfo selectRoomById(Long roomId);
+
+    BigDecimal selectMinRentByApartmentId(Long apartmentId);
+
 }
