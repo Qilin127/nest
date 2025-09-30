@@ -1,11 +1,14 @@
 package com.nest.renting.web.admin.controller.apartment;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.nest.renting.common.result.Result;
 import com.nest.renting.model.entity.LabelInfo;
+import com.nest.renting.model.entity.RoomLabel;
 import com.nest.renting.model.enums.ItemType;
 import com.nest.renting.web.admin.service.LabelInfoService;
 
+import com.nest.renting.web.admin.service.RoomLabelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -22,9 +25,9 @@ import java.util.List;
 @RequestMapping("/admin/label")
 public class LabelController {
     @Autowired
-    private LabelInfoService service;
-    @Operation(summary = "Retrieve the tag list by type")
-    @GetMapping("list")
+    private LabelInfoService labelInfoService;
+    @Autowired
+    private RoomLabelService roomLabelService;
 
     /**
      * Retrieve the tag list filtered by type.
@@ -32,12 +35,13 @@ public class LabelController {
      * @param type Optional filter parameter of ItemType to specify the tag type.
      * @return Result containing a list of LabelInfo objects matching the filter.
      */
+    @Operation(summary = "Retrieve the tag list by type")
+    @GetMapping("list")
     public Result<List<LabelInfo>> labelList(@RequestParam(required = false) ItemType type) {
-        LambdaQueryWrapper<LabelInfo> queryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<LabelInfo> queryWrapper = new LambdaQueryWrapper<LabelInfo>();
         queryWrapper.eq(type != null, LabelInfo::getType, type);
-        List<LabelInfo> list = service.list(queryWrapper);
+        List<LabelInfo> list = labelInfoService.list(queryWrapper);
         return Result.ok(list);
-
     }
 
     /**
@@ -49,6 +53,7 @@ public class LabelController {
     @Operation(summary = "Add or update tag information")//Delete tag information by id
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdateLabel(@RequestBody LabelInfo labelInfo) {
+        labelInfoService.saveOrUpdate(labelInfo);
         return Result.ok();
     }
 
@@ -61,6 +66,8 @@ public class LabelController {
     @Operation(summary = "Delete tag information by ID")
     @DeleteMapping("deleteById")
     public Result deleteLabelById(@RequestParam Long id) {
+        labelInfoService.removeById(id);
+        roomLabelService.remove(new QueryWrapper<RoomLabel>().eq("label_id", id));
         return Result.ok();
     }
 }
